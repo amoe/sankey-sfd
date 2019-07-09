@@ -4,13 +4,14 @@ import energy from './energy';
 import FAKE_SFD_GRAPH from './fake-sfd-graph';
 import REAL_SFD_GRAPH from './sfd-graph';
 
-function compareNodes(n1, n2) {
-    return n2.count - n1.count;
+function makeCompare(sortKey) {
+    return function (n1, n2) {
+        return n2[sortKey] - n1[sortKey];
+    };
 }
 
-function onReady() {
-    console.log("onready");
-    console.log("energy", energy);
+function drawChart(sortKey) {
+
 
     const width = 975;
     const height = 1000;
@@ -22,13 +23,14 @@ function onReady() {
           .nodeWidth(15)
           .nodePadding(10)
           .extent([[1, 5], [width - 1, height - 5]])
-          .nodeSort(compareNodes);
+          .nodeSort(makeCompare(sortKey));
 
     const graph = generator(data);
 
     console.log("graph is %o", graph);
 
     const svg = d3.select('svg');
+    svg.selectAll('*').remove();
 
     console.log("selection is %o", svg);
 
@@ -73,9 +75,20 @@ function onReady() {
         .attr("stroke",  "#aaaaaa")
         .attr("stroke-width", d => Math.max(1, d.width));
 
-  link.append("title")
-      .text(d => `${d.source.name} → ${d.target.name}\n${d.value}`);
+    link.append("title")
+        .text(d => `${d.source.name} → ${d.target.name}\n${d.value}`);
+}
 
+function onReady() {
+    console.log("onready");
+    console.log("energy", energy);
+
+    document.querySelector('#sort').addEventListener('change', e => {
+        e.target.value
+        drawChart(e.target.value);
+    });                                                   
+
+    drawChart('count');
 }
 
 document.addEventListener('DOMContentLoaded', onReady);
