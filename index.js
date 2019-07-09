@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import {sankey, sankeyLinkHorizontal} from 'd3-sankey';
 import energy from './energy';
+import FAKE_SFD_GRAPH from './fake-sfd-graph';
 
 function onReady() {
     console.log("onready");
@@ -9,11 +10,15 @@ function onReady() {
     const width = 975;
     const height = 600;
 
+    // const data = energy;
+    const data = FAKE_SFD_GRAPH;
+
     const generator = sankey()
           .nodeWidth(15)
           .nodePadding(10)
           .extent([[1, 5], [width - 1, height - 5]]);
-    const graph = generator(energy);
+
+    const graph = generator(data);
 
     console.log("graph is %o", graph);
 
