@@ -11,9 +11,10 @@ export default {
             value: 2
         },
         {
-            source: 1,
-            target: 2,
+            source: 2,
+            target: 1,
             value: 4
-        }
+        },
+
     ]
 }

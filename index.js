@@ -40,6 +40,9 @@ function onReady() {
         .append("title")
         .text(d => `${d.name}\n${d.value}`);
 
+
+
+
     // Draw labels for the nodes
     svg.append("g")
         .style("font", "10px sans-serif")
@@ -68,6 +71,7 @@ function onReady() {
 
   link.append("title")
       .text(d => `${d.source.name} → ${d.target.name}\n${d.value}`);
+
 }
 
 document.addEventListener('DOMContentLoaded', onReady);
