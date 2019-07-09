@@ -2,7 +2,8 @@ import * as d3 from 'd3';
 import {sankey, sankeyLinkHorizontal} from 'd3-sankey';
 import energy from './energy';
 import FAKE_SFD_GRAPH from './fake-sfd-graph';
-import REAL_SFD_GRAPH from './sfd-graph';
+import MARITIME_MILITARY from './military-maritime.js';
+import CHASE_RIVER from './chase-river.js';
 
 function makeCompare(sortKey) {
     return function (n1, n2) {
@@ -10,14 +11,11 @@ function makeCompare(sortKey) {
     };
 }
 
-function drawChart(sortKey) {
+function drawChart(sortKey, data) {
     const width = 975;
     const height = 1000;
 
-    // const data = energy;
-    const data = REAL_SFD_GRAPH;
-
-    const generator = sankey()
+     const generator = sankey()
           .nodeWidth(15)
           .nodePadding(10)
           .extent([[1, 5], [width - 1, height - 5]])
@@ -80,16 +78,26 @@ function drawChart(sortKey) {
         .text(d => `${d.source.name} → ${d.target.name}\n${d.value}`);
 }
 
+const dataSets = {
+    'setA': MARITIME_MILITARY,
+    'setB': CHASE_RIVER
+};
+
 function onReady() {
     console.log("onready");
     console.log("energy", energy);
 
-    document.querySelector('#sort').addEventListener('change', e => {
-        e.target.value
-        drawChart(e.target.value);
+
+    document.querySelector('#controls').addEventListener('change', e => {
+        const sortKey = document.querySelector('input[name="sort"]:checked').value;
+        const datasetName = document.querySelector('input[name="dataset"]:checked').value;
+
+        console.log("sortkey is %o", sortKey);
+        console.log("datasetName is %o", datasetName);
+        drawChart(sortKey, dataSets[datasetName]);
     });                                                   
 
-    drawChart('count');
+    drawChart('count', CHASE_RIVER);
 }
 
 document.addEventListener('DOMContentLoaded', onReady);
