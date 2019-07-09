@@ -2,21 +2,27 @@ import * as d3 from 'd3';
 import {sankey, sankeyLinkHorizontal} from 'd3-sankey';
 import energy from './energy';
 import FAKE_SFD_GRAPH from './fake-sfd-graph';
+import REAL_SFD_GRAPH from './sfd-graph';
+
+function compareNodes(n1, n2) {
+    return n2.count - n1.count;
+}
 
 function onReady() {
     console.log("onready");
     console.log("energy", energy);
 
     const width = 975;
-    const height = 600;
+    const height = 1000;
 
     // const data = energy;
-    const data = FAKE_SFD_GRAPH;
+    const data = REAL_SFD_GRAPH;
 
     const generator = sankey()
           .nodeWidth(15)
           .nodePadding(10)
-          .extent([[1, 5], [width - 1, height - 5]]);
+          .extent([[1, 5], [width - 1, height - 5]])
+          .nodeSort(compareNodes);
 
     const graph = generator(data);
 
@@ -39,8 +45,6 @@ function onReady() {
         .attr("fill", d => "green")
         .append("title")
         .text(d => `${d.name}\n${d.value}`);
-
-
 
 
     // Draw labels for the nodes
