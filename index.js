@@ -11,8 +11,6 @@ function makeCompare(sortKey) {
 }
 
 function drawChart(sortKey) {
-
-
     const width = 975;
     const height = 1000;
 
@@ -62,6 +60,7 @@ function drawChart(sortKey) {
         .text(d => d.name);
 
 
+
     const link = svg.append("g")
           .attr("fill", "none")
           .attr("stroke-opacity", 0.5)
@@ -70,9 +69,11 @@ function drawChart(sortKey) {
           .join("g")
           .style("mix-blend-mode", "multiply");
 
+    const color = d3.scaleOrdinal(d3.schemePastel1);
+
     link.append("path")
         .attr("d", sankeyLinkHorizontal())
-        .attr("stroke",  "#aaaaaa")
+        .attr("stroke",  d => color(d.source.name))
         .attr("stroke-width", d => Math.max(1, d.width));
 
     link.append("title")
