@@ -19,11 +19,11 @@ def get_data(path, sheet_index, min_row):
         )
     return result
 
-# foo1 = get_data("/home/amoe/pairing/Military-c SPD.xlsx", 1, 2)
-# foo2 = get_data("/home/amoe/pairing/MaritimeSPD.xlsx", 0, 2)
+# foo1 = get_data("sample-excel/pairing1/Military-c SPD.xlsx", 1, 2)
+# foo2 = get_data("sample-excel/pairing1/MaritimeSPD.xlsx", 0, 2)
 
-foo2 = get_data("/home/amoe/spd/Chase SPD.xlsx", 1, 3)
-foo1 = get_data("/home/amoe/spd/RiverChasePx4 SPD.xlsx", 1, 3)
+foo2 = get_data("sample-excel/pairing2/Chase SPD.xlsx", 1, 3)
+foo1 = get_data("sample-excel/pairing2/RiverChasePx4 SPD.xlsx", 1, 3)
 
 features = {}
 
