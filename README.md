@@ -6,3 +6,6 @@ Detector](https://github.com/andehr/sfpd).
 
 For information on the algorithm, see the paper "Characterising Semantically
 Coherent Categories of Text Using Feature Discovery" (2018).
+
+The graph must be created from two excel files.  Two are provided in the
+`sample-excel` directory.
